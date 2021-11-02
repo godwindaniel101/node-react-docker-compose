@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+      args:
+        - SERVER_PORT=$SERVER_PORT
+    volumes:
+      - /app-base/node_modules
+      - ./server:/app-base
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+    depends_on:
+      - "redis-doc"
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+      args:
+        - CLIENT_PORT=$CLIENT_PORT
+    volumes:
+      - /app-base/node_modules
+      - ./client:/app-base
+    ports:
+      - "$CLIENT_PORT:$CLIENT_PORT"
+
+  redis-doc:
+    container_name: redis-doc
+    image: redis:latest
+    ports:
+      - "$REDIS_PORT:$REDIS_PORT"
