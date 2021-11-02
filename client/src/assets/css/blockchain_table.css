@@ -180,7 +180,9 @@ td a:hover,
   background: green;
   color: white;
 }
-
+.react-calendar__navigation__label__labelText{
+  line-height: 20px!important;
+}
 .rwd-table-wrap {
   padding: 20px;
   width: 100%;
